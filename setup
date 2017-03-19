@@ -29,6 +29,9 @@ echo
 echo
 echo 'Installing MySql...'
 echo '-------------------'
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+yum update
 yum install mysql-server
 }
 
@@ -64,7 +67,7 @@ echo '##########################################################################
 echo '#######################################################################################################'
 }
 
-form=$(dialog --checklist "Choose setup options:" 12 40 6 \
+form=$(dialog --checklist "Choose setup options:" 14 40 6 \
         1 "Update Packages" on \
         2 "Install Apache" on \
         3 "Install PHP" on \
