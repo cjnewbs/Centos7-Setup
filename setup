@@ -1,0 +1,104 @@
+updatePackages() {
+echo
+echo
+echo
+echo 'Updating packages...'
+echo '--------------------'
+yum update
+}
+
+installApache() {
+echo
+echo
+echo
+echo 'Installing Apache...'
+echo '--------------------'
+yum install httpd
+}
+
+installPhp() {
+echo
+echo
+echo 'Installing PHP...'
+echo '-----------------'
+yum install php
+}
+
+installMysql() {
+echo
+echo
+echo 'Installing MySql...'
+echo '-------------------'
+yum install mysql-server
+}
+
+installCertbot() {
+echo
+echo
+echo
+echo 'Installing EFF-Certbot...'
+echo '-------------------------'
+yum install epel-release
+yum install python-certbot-apache
+}
+
+installGit() {
+echo
+echo
+echo
+echo 'Installing Git...'
+echo '-----------------'
+yum install git all
+}
+
+showEndGraphic() {
+echo
+echo
+echo
+echo '#######################################################################################################'
+echo '#######################################################################################################'
+echo '##                                                                                                   ##'
+echo '##                                       Installation Complete                                       ##'
+echo '##                                                                                                   ##'
+echo '#######################################################################################################'
+echo '#######################################################################################################'
+}
+
+form=$(dialog --checklist "Choose setup options:" 12 40 6 \
+        1 "Update Packages" on \
+        2 "Install Apache" on \
+        3 "Install PHP" on \
+        4 "Install MySql" on \
+        5 "Install EFF Certbot" on \
+        6 "Install Git" on \
+        3>&1 1>&2 2>&3 3>&- \
+)
+
+if [[ $form == "" ]]; then
+  echo "Nothing was entered, aborting"
+else
+  if [[ $form == *"1"* ]]; then
+    updatePackages
+  fi
+
+  if [[ $form == *"2"* ]]; then
+    installApache
+  fi
+
+  if [[ $form == *"3"* ]]; then
+    installPhp
+  fi
+
+  if [[ $form == *"4"* ]]; then
+    installMysql
+  fi
+
+  if [[ $form == *"5"* ]]; then
+    installCertbot
+  fi
+
+  if [[ $form == *"6"* ]]; then
+    installGit
+  fi
+  showEndGraphic
+fi
